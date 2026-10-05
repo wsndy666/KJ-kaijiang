@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>抽奖系统 · 管理后台</title>
+<link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<!-- ============ 登录 ============ -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="logo">🎉</div>
+    <h1>抽奖系统 · 管理后台</h1>
+    <p>请输入后台密码进入管理界面</p>
+    <input type="password" id="pwd" placeholder="后台密码" autocomplete="current-password" />
+    <button class="btn block" id="btnLogin">登 录</button>
+    <p style="margin:14px 0 0;font-size:12px;">默认密码 admin123，登录后请在「开奖设置」中修改</p>
+  </div>
+</div>
+
+<!-- ============ 主体 ============ -->
+<div id="app" class="hidden">
+
+  <div class="topbar">
+    <div class="brand"><span class="emoji">🎉</span><span id="brandTitle">抽奖系统 · 管理后台</span></div>
+    <div class="ops">
+      <span class="lnk" id="openPage">打开参与页 ↗</span>
+      <span class="lnk" id="btnRefresh">刷新</span>
+      <span class="lnk" id="btnLogout">退出</span>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- 概览 -->
+    <div class="stats">
+      <div class="stat"><div class="k">参与总人数</div><div class="v" id="stTotal">0</div></div>
+      <div class="stat gold"><div class="k">中奖人数</div><div class="v" id="stWin">0</div></div>
+      <div class="stat green"><div class="k">开奖状态</div><div class="v" id="stDraw" style="font-size:19px">未开奖</div></div>
+      <div class="stat"><div class="k">开奖方式</div><div class="v" id="stMode" style="font-size:19px">-</div></div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="act">活动设置</div>
+      <div class="tab" data-tab="draw">开奖设置</div>
+      <div class="tab" data-tab="users">参与名单</div>
+      <div class="tab" data-tab="wins">中奖名单</div>
+      <div class="tab" data-tab="qr">二维码</div>
+    </div>
+
+    <!-- ============ 活动设置 ============ -->
+    <div class="panel" id="panel-act">
+      <div class="card">
+        <h2>活动与奖品信息</h2>
+        <p class="sub">用户扫码后第一眼看到的内容，改完点最下方保存生效</p>
+
+        <div class="grid2">
+          <div class="field">
+            <label>活动标题</label>
+            <input type="text" id="cfActivityTitle" placeholder="如：幸运大抽奖" />
+          </div>
+          <div class="field">
+            <label>活动副标题</label>
+            <input type="text" id="cfActivitySubTitle" placeholder="如：扫码参与 · 好运连连" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>活动说明 <span class="hint">支持换行</span></label>
+          <textarea id="cfActivityDesc" placeholder="介绍一下活动背景、参与方式、规则等"></textarea>
+        </div>
+
+        <div class="field">
+          <label>奖品名称</label>
+          <input type="text" id="cfPrizeName" placeholder="如：精美保温杯一个" />
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label>中奖名额（共几名）</label>
+            <input type="number" id="cfPrizeCount" min="1" step="1" />
+          </div>
+          <div class="field">
+            <label>奖品图片地址 <span class="hint">选填，留空显示 🎁</span></label>
+            <input type="url" id="cfPrizeImage" placeholder="https://... 或 /img/prize.jpg" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>奖品高亮标签 <span class="hint">奖品页顶部的小标签，留空则不显示</span></label>
+          <input type="text" id="cfPrizeBadge" placeholder="如：75% 超高水效 · 超越国家一级水效标准" />
+        </div>
+
+        <div class="field">
+          <label>奖品简介 <span class="hint">参与页弹层里显示的一段话，别太长</span></label>
+          <textarea id="cfPrizeDesc" style="min-height:70px" placeholder="如：中奖后凭手机号到门店领取"></textarea>
+        </div>
+
+        <div class="field">
+          <label>核心卖点 <span class="hint">一行一条，展示在独立的奖品页</span></label>
+          <textarea id="cfPrizeHighlights" style="min-height:120px" placeholder="RO 反渗透过滤，出水健康直饮&#10;外置压力桶设计，停水用水不担忧"></textarea>
+        </div>
+
+        <div class="field">
+          <label>产品参数 <span class="hint">一行一条，格式：参数名|参数值</span></label>
+          <textarea id="cfPrizeSpecs" style="min-height:150px" placeholder="额定功率|28W&#10;净水流量|15.6L/h"></textarea>
+        </div>
+
+        <button class="btn block" id="btnSaveAct">保 存 活 动 设 置</button>
+        <button class="btn block gray" id="btnPreviewPrize" style="margin-top:10px">预 览 奖 品 页</button>
+      </div>
+    </div>
+
+    <!-- ============ 开奖设置 ============ -->
+    <div class="panel hidden" id="panel-draw">
+      <div class="card">
+        <h2>开奖方式</h2>
+        <p class="sub">决定倒计时结束后怎么开奖</p>
+
+        <div class="radio-row" id="modeRow">
+          <label class="radio-card" data-mode="fixed">
+            <input type="radio" name="drawMode" value="fixed" />
+            <div>
+              <div class="rc-t">固定时间开奖</div>
+              <div class="rc-d">到达设定时间后，系统自动开奖并公布名单，无需人工操作</div>
+            </div>
+          </label>
+          <label class="radio-card" data-mode="instant">
+            <input type="radio" name="drawMode" value="instant" />
+            <div>
+              <div class="rc-t">临时开奖</div>
+              <div class="rc-d">倒计时到 0 后不自动开，页面提示「等待主持人开启」，由您在后台点「立即开奖」</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="field" style="margin-top:18px">
+          <label>开奖时间 <span class="hint">两种模式都用它来做倒计时</span></label>
+          <input type="datetime-local" id="cfDrawTime" />
+        </div>
+
+        <button class="btn block" id="btnSaveDraw">保 存 开 奖 设 置</button>
+      </div>
+
+      <div class="card">
+        <h2>规则开关</h2>
+        <p class="sub">控制参与和开奖的具体规则</p>
+
+        <div class="switch-row">
+          <div>
+            <div class="sw-t">一个手机号只能参与一次</div>
+            <div class="sw-d">关闭后，同一手机号可重复提交，抽中概率叠加</div>
+          </div>
+          <div class="switch" id="swLimit"></div>
+        </div>
+
+        <div class="switch-row">
+          <div>
+            <div class="sw-t">一人最多中一个奖</div>
+            <div class="sw-d">已中奖的用户不再进入后续抽奖池</div>
+          </div>
+          <div class="switch" id="swNoRepeat"></div>
+        </div>
+
+        <div class="switch-row">
+          <div>
+            <div class="sw-t">开奖后仍允许报名</div>
+            <div class="sw-d">关闭后，开奖完成即停止接收新的报名信息</div>
+          </div>
+          <div class="switch" id="swAllowJoin"></div>
+        </div>
+
+        <div class="switch-row">
+          <div>
+            <div class="sw-t">开启滚动动画</div>
+            <div class="sw-d">参与名单与中奖名单滚动展示，关闭后为静态</div>
+          </div>
+          <div class="switch" id="swRolling"></div>
+        </div>
+
+        <div style="margin-top:18px">
+          <button class="btn block" id="btnSaveRules">保 存 规 则</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>后台密码</h2>
+        <p class="sub">留空则不修改</p>
+        <div class="field">
+          <label>新密码</label>
+          <input type="text" id="cfAdminPassword" placeholder="输入新的后台密码" autocomplete="new-password" />
+        </div>
+        <button class="btn block" id="btnSavePwd">修 改 密 码</button>
+      </div>
+
+      <div class="card" style="border-color:#ffd4d4">
+        <h2 style="color:#b3121a">开奖操作</h2>
+        <p class="sub">立即开奖 / 重置 / 清空数据，操作前都会有二次确认</p>
+
+        <div class="notice red">
+          当前状态：<b id="drawStateText">未开奖</b><span id="drawStateTime"></span>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn gold" id="btnDrawNow">立 即 开 奖</button>
+          <button class="btn line" id="btnResetDraw">重 置 开 奖</button>
+          <button class="btn danger" id="btnClearAll">清 空 全 部 数 据</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 参与名单 ============ -->
+    <div class="panel hidden" id="panel-users">
+      <div class="card">
+        <div class="card-head">
+          <h2>参与名单</h2>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn sm gray" id="btnAddUser">手动添加</button>
+            <button class="btn sm line" id="btnExport">导出 Excel(CSV)</button>
+          </div>
+        </div>
+
+        <div class="grid2" style="margin-bottom:14px">
+          <div class="field" style="margin:0">
+            <input type="text" id="userSearch" placeholder="搜索姓名或手机号…" />
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:60px">序号</th>
+                <th>姓名</th>
+                <th>手机号</th>
+                <th>参与时间</th>
+                <th style="width:90px">状态</th>
+                <th style="width:80px">操作</th>
+              </tr>
+            </thead>
+            <tbody id="userTbody"></tbody>
+          </table>
+        </div>
+        <div class="empty hidden" id="userEmpty"><span class="ic">📋</span>还没有人参与</div>
+      </div>
+    </div>
+
+    <!-- ============ 中奖名单 ============ -->
+    <div class="panel hidden" id="panel-wins">
+      <div class="card">
+        <div class="card-head">
+          <h2>中奖名单</h2>
+          <button class="btn sm line" id="btnExportWin">导出 Excel(CSV)</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:60px">序号</th>
+                <th>姓名</th>
+                <th>手机号</th>
+                <th>奖品</th>
+                <th>开奖时间</th>
+              </tr>
+            </thead>
+            <tbody id="winTbody"></tbody>
+          </table>
+        </div>
+        <div class="empty hidden" id="winEmpty"><span class="ic">🏆</span>还没有开奖记录</div>
+      </div>
+    </div>
+
+    <!-- ============ 二维码 ============ -->
+    <div class="panel hidden" id="panel-qr">
+      <div class="card">
+        <h2>活动二维码与链接</h2>
+        <p class="sub">把二维码打印或投屏出去，用户扫码即可参与</p>
+
+        <div class="field">
+          <label>活动访问地址 <span class="hint">如果部署到服务器，请填服务器的公网地址</span></label>
+          <div class="link-box">
+            <input type="text" id="qrUrl" />
+            <button class="btn" id="btnCopyUrl">复制链接</button>
+          </div>
+        </div>
+
+        <div class="qr-box" style="margin-top:18px">
+          <div class="qr-img" id="qrImg">正在生成…</div>
+          <div class="qr-side">
+            <div class="notice">
+              <b>怎么用：</b><br />
+              1. 确认上面的链接能被手机访问（局域网用电脑内网 IP，公网用域名或公网 IP）<br />
+              2. 点击下方「生成二维码」，右键保存图片即可印刷<br />
+              3. 若当前网络打不开在线二维码服务，可复制链接到任意二维码工具（如草料二维码）生成
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn" id="btnGenQr">生成二维码</button>
+              <button class="btn gray" id="btnOpenPage">在新窗口打开参与页</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

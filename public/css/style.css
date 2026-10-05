@@ -1,0 +1,349 @@
+/* ================================================================
+   参与页：说明弹层 + 开奖现场
+   依赖 festive.css 提供主题（配色、金边面板、按钮、倒计时、滚动等）
+   ================================================================ */
+
+/* ---------------- 说明弹层 ---------------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: rgba(40, 2, 2, 0.82);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: fadeIn 0.25s ease;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 520px;
+  max-height: 94vh;
+  max-height: 94dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
+  animation: sheetIn 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sheet::-webkit-scrollbar {
+  width: 0;
+}
+@keyframes sheetIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 弹层里的面板做得更实一些，保证文字可读 */
+.sheet-panel {
+  padding: 26px 20px 28px;
+  background: linear-gradient(160deg, rgba(122, 14, 14, 0.94), rgba(64, 5, 5, 0.96));
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+@media (min-width: 640px) {
+  .sheet-panel {
+    padding: 32px 32px 34px;
+  }
+}
+
+.sheet-head {
+  text-align: center;
+}
+.sheet-title {
+  margin-top: 12px;
+  font-size: 34px;
+  line-height: 1.2;
+}
+@media (min-width: 640px) {
+  .sheet-title {
+    font-size: 42px;
+  }
+}
+.sheet-shine {
+  width: 150px;
+  margin: 16px auto 0;
+}
+
+.sheet-sec {
+  margin-top: 22px;
+}
+
+/* ---------------- 奖品行 ---------------- */
+
+.prize-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prize-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--gold-line);
+  background: rgba(60, 5, 5, 0.5);
+}
+
+.prize-thumb {
+  position: relative;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff9ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+.prize-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 竖版海报裁到产品区域 */
+  object-position: 50% 44%;
+}
+.prize-thumb.clickable {
+  cursor: pointer;
+}
+.prize-thumb.clickable::after {
+  content: "›";
+  position: absolute;
+  right: 2px;
+  bottom: 0;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+  color: #ffe9a8;
+  background: rgba(122, 14, 14, 0.9);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.prize-info {
+  flex: 1;
+  min-width: 0;
+}
+.prize-badge {
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #7a0e0e;
+  background: linear-gradient(180deg, #ffe9a8 0%, #f0c75e 45%, #d4a843 100%);
+  box-shadow: 0 2px 0 #9a6b1e;
+}
+.prize-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cream);
+  line-height: 1.4;
+  word-break: break-word;
+}
+.prize-qty {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+  background: linear-gradient(180deg, #fff3c4, #f0c75e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.prize-desc {
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+.prize-more {
+  margin-top: 16px;
+  padding: 11px 18px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
+
+/* ---------------- 报名表单 ---------------- */
+
+.join-form {
+  margin-top: 16px;
+}
+.form-tip {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* ---------------- 开奖现场 ---------------- */
+
+.page {
+  position: relative;
+  z-index: 10;
+  max-width: 576px;
+  margin: 0 auto;
+  padding: 76px 16px 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+@media (min-width: 640px) {
+  .page {
+    max-width: 720px;
+    padding-top: 88px;
+    gap: 22px;
+  }
+}
+
+.page-head {
+  text-align: center;
+}
+.head-title {
+  font-size: 34px;
+  line-height: 1.2;
+}
+@media (min-width: 640px) {
+  .head-title {
+    font-size: 46px;
+  }
+}
+.head-shine {
+  width: 140px;
+  margin: 14px auto 0;
+}
+.joined-pill {
+  display: inline-block;
+  margin: 14px 0 0;
+  padding: 7px 18px;
+  border-radius: 9999px;
+  border: 1px solid var(--gold-line-strong);
+  background: rgba(60, 5, 5, 0.5);
+  font-size: 13px;
+  color: var(--cream-95);
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 22px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--cream-75);
+}
+.meta-row b {
+  font-weight: 800;
+}
+
+.cd-area {
+  margin-top: 22px;
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.panel-divider {
+  margin: 22px 0 18px;
+  border-top: 1px solid rgba(246, 212, 124, 0.25);
+}
+
+.ticker-holder {
+  margin-top: 14px;
+}
+.ticker-static {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+/* 开奖结果标题 */
+.cd-result {
+  text-align: center;
+  font-size: 26px;
+  line-height: 1.3;
+}
+@media (min-width: 640px) {
+  .cd-result {
+    font-size: 32px;
+  }
+}
+
+.page-foot {
+  margin-top: 2px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--cream-55);
+}
+.page-foot a {
+  color: var(--cream-55);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s;
+}
+.page-foot a:hover,
+.page-foot a:active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+.dot-sep {
+  margin: 0 10px;
+  opacity: 0.45;
+}
+
+/* ---------------- 开奖动画 ---------------- */
+
+.reveal-roll-panel {
+  padding: 26px 32px;
+}
+@media (min-width: 640px) {
+  .reveal-roll-panel {
+    padding: 34px 56px;
+  }
+}
+.reveal-roll-line {
+  margin-top: 16px;
+  height: 3px;
+}
+.reveal-card-title {
+  font-size: 28px;
+}
+.reveal-card-shine {
+  width: 66%;
+  margin: 12px auto 0;
+}
+.reveal-close {
+  display: block;
+  margin: 26px auto 0;
+  padding: 12px 40px;
+  font-size: 15px;
+}

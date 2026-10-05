@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#a81616" />
+<title>奖品详情</title>
+<link rel="stylesheet" href="css/festive.css" />
+<link rel="stylesheet" href="css/prize.css" />
+</head>
+<body class="festive-root">
+
+<div class="fx-layer"></div>
+
+<div class="loading" id="loading"><div class="spinner"></div>加载中</div>
+
+<main class="page prize-page" id="page">
+
+  <div class="topnav">
+    <a class="gold-btn outline sm" id="btnBack">‹ 返回</a>
+    <span class="navtitle">奖 品 详 情</span>
+    <span class="navpad"></span>
+  </div>
+
+  <header class="page-head">
+    <p class="kicker" id="pSub">扫码参与 · 好礼相送</p>
+    <h1 class="festive-title glow-pulse head-title" id="pName">--</h1>
+    <div class="shine-line head-shine"></div>
+    <p class="p-badge hidden" id="pBadge"></p>
+    <p class="p-count-chip">共 <b id="pCount">1</b> 个中奖名额</p>
+  </header>
+
+  <section class="p-visual">
+    <div class="halo"></div>
+    <div class="gold-panel visual-frame" id="visualFrame">
+      <span class="visual-icon">🎁</span>
+      <span class="zoom-tip">点击查看原图</span>
+    </div>
+  </section>
+
+  <section class="gold-panel">
+    <h2 class="panel-title">
+      <span class="gold-text">核心卖点</span>
+      <span class="shine-line flex1"></span>
+    </h2>
+    <ul class="hl-list" id="hlList"></ul>
+  </section>
+
+  <section class="gold-panel">
+    <h2 class="panel-title">
+      <span class="gold-text">产品参数</span>
+      <span class="shine-line flex1"></span>
+    </h2>
+    <table class="spec-table"><tbody id="specBody"></tbody></table>
+  </section>
+
+  <p class="p-note" id="pNote"></p>
+
+  <footer class="page-foot">🎊 活动最终解释权归主办方所有 🎊</footer>
+</main>
+
+<div class="cta-bar">
+  <button type="button" class="gold-btn block" id="btnJoin">我要参与抽奖</button>
+</div>
+
+<div class="lightbox hidden" id="lightbox">
+  <img id="lightboxImg" alt="奖品原图" />
+  <div class="lightbox-tip">点击任意位置关闭</div>
+</div>
+
+<script src="js/festive.js"></script>
+<script src="js/prize.js"></script>
+</body>
+</html>

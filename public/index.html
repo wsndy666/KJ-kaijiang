@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#a81616" />
+<title>幸运时刻</title>
+<link rel="stylesheet" href="css/festive.css" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="festive-root">
+
+<div class="fx-layer"></div>
+
+<div class="loading" id="loading"><div class="spinner"></div>加载中</div>
+
+<!-- ============ 第一步：活动说明 + 报名（弹层） ============ -->
+<div class="overlay" id="overlayIntro">
+  <div class="sheet" id="introSheet">
+    <div class="gold-panel sheet-panel">
+
+      <header class="sheet-head">
+        <p class="kicker" id="introSub">扫码参与 · 好礼相送</p>
+        <h1 class="festive-title glow-pulse sheet-title" id="introTitle">幸运时刻</h1>
+        <div class="shine-line sheet-shine"></div>
+      </header>
+
+      <!-- 活动说明 -->
+      <section class="sheet-sec">
+        <h2 class="panel-title">
+          <span class="gold-text">活动说明</span>
+          <span class="shine-line flex1"></span>
+        </h2>
+        <p class="panel-text" id="introDesc">正在加载活动信息…</p>
+      </section>
+
+      <!-- 奖品说明 -->
+      <section class="sheet-sec">
+        <h2 class="panel-title">
+          <span class="gold-text">奖品说明</span>
+          <span class="shine-line flex1"></span>
+        </h2>
+        <ul class="prize-list" id="prizeList"></ul>
+        <p class="panel-text prize-desc" id="prizeDesc"></p>
+        <button type="button" class="gold-btn outline block prize-more" id="prizeMore">
+          查看完整奖品详情 ›
+        </button>
+      </section>
+
+      <!-- 报名 -->
+      <section class="sheet-sec">
+        <h2 class="panel-title">
+          <span class="gold-text">立即参与</span>
+          <span class="shine-line flex1"></span>
+        </h2>
+        <form class="join-form" id="joinForm" novalidate>
+          <label class="field">
+            <span class="field-label">姓名</span>
+            <input class="festive-input" id="inName" type="text" maxlength="20"
+                   placeholder="请输入您的姓名（仅汉字）" autocomplete="name" />
+          </label>
+          <label class="field">
+            <span class="field-label">手机号</span>
+            <input class="festive-input" id="inPhone" type="tel" maxlength="11" inputmode="numeric"
+                   placeholder="用于开奖后联系您领奖" autocomplete="tel" />
+          </label>
+          <p class="form-error hidden" id="formError"></p>
+          <button type="submit" class="gold-btn block" id="btnJoin">提交并进入开奖现场</button>
+          <p class="form-tip" id="joinTips">已有 <b id="joinCount">0</b> 人参与</p>
+        </form>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ 第二步：开奖现场 ============ -->
+<main class="page hidden" id="appDraw">
+
+  <header class="page-head">
+    <h1 class="festive-title glow-pulse head-title" id="heroTitle">开奖现场</h1>
+    <div class="shine-line head-shine"></div>
+    <p class="joined-pill hidden" id="joinedPill">报名成功，静候开奖</p>
+  </header>
+
+  <!-- 上半部分：开奖信息 + 中奖名单 -->
+  <section class="gold-panel">
+    <div class="meta-row">
+      <span>开奖方式：<b class="gold-text" id="modeTag">固定时间开奖</b></span>
+      <span>开奖时间：<b class="gold-text" id="drawTimeText">待定</b></span>
+      <span>参与人数：<b class="gold-text" id="cntNum">0</b></span>
+    </div>
+
+    <div class="cd-area" id="cdArea"></div>
+
+    <div class="panel-divider"></div>
+
+    <h2 class="panel-title">
+      <span class="gold-text">中奖名单</span>
+      <span class="shine-line flex1"></span>
+    </h2>
+    <div class="ticker-holder" id="stage"></div>
+  </section>
+
+  <!-- 下半部分：参与用户 -->
+  <section class="gold-panel">
+    <h2 class="panel-title">
+      <span class="gold-text">参与用户</span>
+      <span class="shine-line flex1"></span>
+      <span class="hint">实时滚动</span>
+    </h2>
+    <div class="ticker-holder" id="rollWrap"></div>
+  </section>
+
+  <footer class="page-foot">
+    <a id="linkPrize">奖品详情</a>
+    <span class="dot-sep">·</span>
+    <a id="linkRules">活动说明</a>
+  </footer>
+</main>
+
+<!-- ============ 开奖动画 ============ -->
+<div class="reveal-mask hidden" id="revealMask">
+  <div class="reveal-roll" id="revealRoll">
+    <p class="reveal-roll-title">正在开奖</p>
+    <div class="gold-panel reveal-roll-panel">
+      <span class="reveal-roll-num" id="revealNum">138****8888</span>
+      <div class="shine-line reveal-roll-line"></div>
+    </div>
+    <p class="reveal-tip">好运即将揭晓</p>
+  </div>
+
+  <div class="gold-panel reveal-card hidden" id="revealCard">
+    <h2 class="festive-title reveal-card-title">中奖名单</h2>
+    <div class="shine-line reveal-card-shine"></div>
+    <div id="revealList"></div>
+    <button type="button" class="gold-btn reveal-close" id="revealClose">收下好运</button>
+  </div>
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<script src="js/festive.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

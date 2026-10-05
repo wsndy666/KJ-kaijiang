@@ -1,0 +1,322 @@
+/* ================================================================
+   奖品展示页（深红 + 鎏金，与参与页同一套主题）
+   依赖 festive.css 提供主题基础
+   ================================================================ */
+
+.prize-page {
+  padding-bottom: 130px;
+}
+
+/* ---------------- 顶部导航 ---------------- */
+
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.navtitle {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-indent: 0.35em;
+  background: linear-gradient(180deg, #fff3c4, #f0c75e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.navpad {
+  width: 62px;
+}
+.topnav .gold-btn.sm {
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+/* ---------------- 标题区 ---------------- */
+
+.page-head {
+  text-align: center;
+  margin-top: 6px;
+}
+.head-title {
+  margin-top: 12px;
+  font-size: 30px;
+  line-height: 1.25;
+}
+@media (min-width: 640px) {
+  .head-title {
+    font-size: 40px;
+  }
+}
+.head-shine {
+  width: 150px;
+  margin: 14px auto 0;
+}
+
+.p-badge {
+  display: inline-block;
+  margin: 16px 0 0;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #7a0e0e;
+  background: linear-gradient(180deg, #fff3cf, #f6d47c 60%, #d4a843);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255, 245, 210, 0.7) inset;
+  animation: badgeGlow 2.4s ease-in-out infinite;
+}
+@keyframes badgeGlow {
+  0%,
+  100% {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255, 245, 210, 0.7) inset;
+  }
+  50% {
+    box-shadow: 0 4px 24px rgba(255, 200, 90, 0.8), 0 0 0 1px rgba(255, 245, 210, 0.9) inset;
+  }
+}
+
+.p-count-chip {
+  display: inline-block;
+  margin: 12px 0 0;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  border: 1px solid var(--gold-line-strong);
+  background: rgba(60, 5, 5, 0.5);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--cream-95);
+}
+.p-count-chip b {
+  margin: 0 3px;
+  font-size: 19px;
+  font-weight: 900;
+  vertical-align: -1px;
+  background: linear-gradient(180deg, #fff3c4, #f0c75e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---------------- 主视觉 ---------------- */
+
+.p-visual {
+  position: relative;
+}
+.halo {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 110, 0.42), rgba(255, 215, 110, 0) 68%);
+  animation: haloPulse 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes haloPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+.visual-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  padding: 14px;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+.visual-frame img {
+  display: block;
+  max-width: 100%;
+  max-height: 58vh;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;
+}
+.visual-icon {
+  font-size: 76px;
+  line-height: 1;
+}
+.zoom-tip {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffe9a8;
+  background: rgba(90, 6, 6, 0.88);
+  border: 1px solid var(--gold-line);
+}
+.visual-frame:not(.has-img) .zoom-tip {
+  display: none;
+}
+
+/* ---------------- 核心卖点 ---------------- */
+
+.hl-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 12px 13px;
+  border-radius: 12px;
+  border: 1px solid var(--gold-line);
+  background: rgba(60, 5, 5, 0.5);
+  animation: hlIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes hlIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hl-ico {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #7a0e0e;
+  background: linear-gradient(180deg, #ffe9a8, #d4a843);
+  box-shadow: 0 2px 0 #9a6b1e;
+}
+.hl-txt {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--cream-95);
+}
+
+/* ---------------- 产品参数 ---------------- */
+
+.spec-table {
+  width: 100%;
+  margin-top: 14px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.spec-table td {
+  padding: 10px 13px;
+  border-bottom: 1px solid rgba(246, 212, 124, 0.16);
+  vertical-align: top;
+}
+.spec-table tr:last-child td {
+  border-bottom: 0;
+}
+.spec-table tr:nth-child(odd) {
+  background: rgba(60, 5, 5, 0.38);
+}
+.spec-table .k {
+  width: 40%;
+  color: var(--cream-65);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.spec-table .v {
+  color: var(--cream-95);
+  font-weight: 700;
+  word-break: break-word;
+}
+
+/* ---------------- 底部说明 ---------------- */
+
+.p-note {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px dashed var(--gold-line-strong);
+  background: rgba(60, 5, 5, 0.42);
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--cream-85);
+  white-space: pre-wrap;
+}
+.p-note:empty {
+  display: none;
+}
+
+/* ---------------- 底部固定按钮 ---------------- */
+
+.cta-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(180deg, rgba(96, 6, 6, 0), rgba(96, 6, 6, 0.9) 34%, #60060c);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.cta-bar .gold-btn {
+  max-width: 544px;
+  margin: 0 auto;
+}
+
+/* ---------------- 原图查看 ---------------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(20, 1, 1, 0.94);
+  cursor: zoom-out;
+  animation: fadeIn 0.2s ease;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 92vh;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+.lightbox-tip {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  text-align: center;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--cream-65);
+}
