@@ -1,9 +1,5 @@
 # 🎉 扫码抽奖系统 ·「幸运时刻」
 
-> **生产环境已部署**：`http://*****:41080/`（服务器 `***`，服务名 `lottery.service`，目录 `/opt/lottery-system`）
-> 后台 `http://****:41080/admin`，后台密码见服务器 `/opt/lottery-system/DEPLOY-INFO.txt`
-> 运维命令：`systemctl status|restart|stop lottery`，日志 `/opt/lottery-system/logs/stdout.log`
-
 一套开箱即用的活动抽奖系统：用户扫码 → 看活动/奖品说明 → 填姓名手机号 → 进入开奖现场看倒计时与滚动名单 → 到点开奖。
 
 - **零依赖**：只用 Node.js 原生模块，不需要 `npm install`
